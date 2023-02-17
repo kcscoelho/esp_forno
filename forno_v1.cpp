@@ -31,6 +31,12 @@ Bibliotecas:
 - Adafruit GFX
 - Adafruit bme680
 
+Obs: para instalar essas bibliotecas, abrir o Arduino IDE e seguir o caminho abaixo:
+Tools > Manage Libraries
+Então digitar o nome da biblioteca e clicar em Install.
+
+Dica: Para acessar a tela do gerenciador de bibliotecas, com a interface do Arduino IDE aberta, utilize o atalho Ctrl + Shift + i
+
 
 */
 #include <Wire.h>
