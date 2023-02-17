@@ -23,6 +23,15 @@ S0  – Pino 23
 GND – negativo
 VCC – positivo
 
+
+Bibliotecas:
+
+- MAX6675
+- Adafruit SSD1306
+- Adafruit GFX
+- Adafruit bme680
+
+
 */
 #include <Wire.h>
 #include <SPI.h>
