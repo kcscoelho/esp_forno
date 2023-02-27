@@ -72,19 +72,19 @@ versão 3: inserido hora na página web e formato humano no arquivo de dados ao 
 versão 4: adequado para sensores MAX6675 e HX710B.
 
 */
-#include <Wire.h>
-#include <SPI.h>
-#include <max6675.h>
-#include <WiFi.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <AsyncElegantOTA.h>
+#include "Wire.h"
+#include "SPI.h"
+#include "max6675.h"
+#include "WiFi.h"
+#include "AsyncTCP.h"
+#include "ESPAsyncWebServer.h"
+#include "AsyncElegantOTA.h"
 #include "FS.h"
 #include "SPIFFS.h"
-#include <EasyNTPClient.h>
-#include <WiFiUdp.h>
+#include "EasyNTPClient.h"
+#include "WiFiUdp.h"
 #include "time.h"
-#include <Q2HX711.h>
+#include "Q2HX711.h"
 
 #define FORMAT_SPIFFS_IF_FAILED false
 #define DATABASE "/database.csv"
@@ -100,15 +100,15 @@ String data;
 // Tempo par
 int SO = 23;
 int CS = 5;
-int sck = 18;
-MAX6675 module(sck, CS, SO);
+int SCK = 18;
+MAX6675 module(SCK, CS, SO);
 
 // Pressão
 const byte MPS_1_SCK_pin = 10; // clock data pin
 const byte MPS_1_OUT_pin = 11; // OUT data pin
 const byte MPS_2_SCK_pin = 12; // clock data pin
 const byte MPS_2_OUT_pin = 13; // OUT data pin
-int avg_size = 10; // #pts to average over
+int avg_size = 10; // # pts to average over
 
 Q2HX711 MPS20N0040D_1(MPS_1_OUT_pin, MPS_1_SCK_pin); // start comm with the HX710B Sensor 1
 Q2HX711 MPS20N0040D_2(MPS_2_OUT_pin, MPS_2_SCK_pin); // start comm with the HX710B Sensor 2
@@ -116,13 +116,11 @@ Q2HX711 MPS20N0040D_2(MPS_2_OUT_pin, MPS_2_SCK_pin); // start comm with the HX71
 const char* ssid = "x";
 const char* password = "x";
 
-/*
 IPAddress local_IP(x, x, x, 19);
 IPAddress gateway(x, x, x, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress primaryDNS(8, 8, 8, 8);
 IPAddress secondaryDNS(8, 8, 4, 4);
-*/
 
 WiFiUDP ntpUDP;
 EasyNTPClient ntpClient(ntpUDP, "pool.ntp.br", (-3*60*60)); // GMT -3:00
@@ -285,7 +283,7 @@ void getReadings(){
   // PRESSAO SENSOR 2 SAIDA
   pressure2 = 0.0; // variable for averaging
   for (int ii=0;ii<avg_size;ii++){
-    pressure2 += MPS20N0040D_1.read(); // add multiple ADC readings
+    pressure2 += MPS20N0040D_2.read(); // add multiple ADC readings
     delay(50); // delay between readings
   }
   pressure2 /= avg_size;
@@ -343,10 +341,10 @@ const char index_html[] PROGMEM = R"rawliteral(
         <h4><i class="fas fa-thermometer-half"></i> Temperatura</h4><p><span class="reading"><span id="temp">%TEMPERATURE%</span> &deg;C</span></p>
       </div>
       <div class="card pressure1">
-        <h4><i class="fas fa-angle-double-down"></i> Pressão</h4><p><span class="reading"><span id="pres">%PRESSURE1%</span> hPa</span></p>
+        <h4><i class="fas fa-angle-double-down"></i> Pressão Entrada</h4><p><span class="reading"><span id="pres">%PRESSURE1%</span> hPa</span></p>
       </div>
       <div class="card pressure2">
-        <h4><i class="fas fa-angle-double-down"></i> Pressão</h4><p><span class="reading"><span id="pres">%PRESSURE2%</span> hPa</span></p>
+        <h4><i class="fas fa-angle-double-down"></i> Pressão Saída</h4><p><span class="reading"><span id="pres">%PRESSURE2%</span> hPa</span></p>
       </div>
       <div class="card download">
         <h4>Baixar dados coletados</h4><p><span class="reading"><span id="download"><a href="/download" download><i class="fas fa-download"></i></a></span></p></span> 
