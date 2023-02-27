@@ -11,6 +11,7 @@ Componentes utilizados:
 - ESP WROOM32 (pinout: https://www.electronicshub.org/esp32-pinout/)
 - Termo par tipo K modelo MAX6675
 - Sensor de pressão modelo MPS20N0040D HX710B
+- Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
 
 Conexões:
 Sensor de temperatura termo par tipo K, modelo MAX6675
@@ -19,6 +20,20 @@ SCK – Pino 18
 S0  – Pino 23
 GND – negativo
 VCC – positivo
+
+Obs: para multiplexar os sensores de temperatura, utilizar a seguinte conexão:
+- Todos os SCKs no pino 18.
+- Todos os S0 no pino 23.
+- CS de cada sensor numa porta do MUX.
+
+MUX, Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
+GND – negativo
+VCC – positivo
+S0 - Pino 19
+S1 - Pino 20
+S2 - Pino 21
+S3 - Pino 22
+EN - Pino 5
 
 Sensor de pressão modelo MPS20N0040D / HX710B
 Sensor 1 - Entrada
@@ -89,10 +104,27 @@ versão 4: adequado para sensores MAX6675 e HX710B.
 #define FORMAT_SPIFFS_IF_FAILED false
 #define DATABASE "/database.csv"
 
-#define I2C_SDA 20
-#define I2C_SCL 21
+#define MUX_S0 19
+#define MUX_S1 20
+#define MUX_S2 21
+#define MUX_S3 22
 
-float temperature;
+float temp1;
+float temp2;
+float temp3;
+float temp4;
+float temp5;
+float temp6;
+float temp7;
+float temp8;
+float temp9;
+float temp10;
+float temp11;
+float temp12;
+float temp13;
+float temp14;
+float temp15;
+float temp16;
 float pressure1;
 float pressure2;
 String data;
@@ -264,12 +296,189 @@ String unixTimeToDateTime(unsigned long seconds){
   return ans;
 }
 
+void mux(int circuit){
+
+  if (circuit == 1) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 2) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 3) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 4) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 5) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 6) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 7) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 8) {
+  digitalWrite(MUX_S0, LOW);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 9) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 10) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 11) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 12) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, LOW);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 13) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 14) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, LOW);
+  digitalWrite(MUX_S3, HIGH);
+  }
+
+  if (circuit == 15) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, LOW);
+  }
+
+  if (circuit == 16) {
+  digitalWrite(MUX_S0, HIGH);
+  digitalWrite(MUX_S1, HIGH);
+  digitalWrite(MUX_S2, HIGH);
+  digitalWrite(MUX_S3, HIGH);
+  }
+  
+}
+
 void getReadings(){
   // TEMPO PAR
-  temperature = module.readCelsius(); 
-  Serial.print("Temperature: ");
-  Serial.print(temperature);
-  Serial.println(F("°C ")); 
+  mux(1);
+  temp1 = module.readCelsius(); 
+  mux(2);
+  temp2 = module.readCelsius(); 
+  mux(3);
+  temp3 = module.readCelsius(); 
+  mux(4);
+  temp4 = module.readCelsius(); 
+  mux(5);
+  temp5 = module.readCelsius(); 
+  mux(6);
+  temp6 = module.readCelsius(); 
+  mux(7);
+  temp7 = module.readCelsius(); 
+  mux(8);
+  temp8 = module.readCelsius(); 
+  mux(9);
+  temp9 =  module.readCelsius(); 
+  mux(10);
+  temp10 = module.readCelsius(); 
+  mux(11);
+  temp11 = module.readCelsius(); 
+  mux(12);
+  temp12 = module.readCelsius(); 
+  mux(13);
+  temp13 = module.readCelsius(); 
+  mux(14);
+  temp14 = module.readCelsius(); 
+  mux(15);
+  temp15 = module.readCelsius(); 
+  mux(16);
+  temp16 = module.readCelsius(); 
+  
+  Serial.print("Temp1: ");
+  Serial.println(temp1);
+  Serial.print("Temp2: ");
+  Serial.println(temp2);
+  Serial.print("Temp3: ");
+  Serial.println(temp3);
+  Serial.print("Temp4: ");
+  Serial.println(temp4);
+  Serial.print("Temp5: ");
+  Serial.println(temp5);
+  Serial.print("Temp6: ");
+  Serial.println(temp6);
+  Serial.print("Temp7: ");
+  Serial.println(temp7);
+  Serial.print("Temp8: ");
+  Serial.println(temp8);
+  Serial.print("Temp9: ");
+  Serial.println(temp9);
+  Serial.print("Temp10: ");
+  Serial.println(temp10);
+  Serial.print("Temp11: ");
+  Serial.println(temp11);
+  Serial.print("Temp12: ");
+  Serial.println(temp12);
+  Serial.print("Temp13: ");
+  Serial.println(temp13);
+  Serial.print("Temp14: ");
+  Serial.println(temp14);
+  Serial.print("Temp15: ");
+  Serial.println(temp15);
+  Serial.print("Temp16: ");
+  Serial.println(temp16);
   
   // PRESSAO SENSOR 1 ENTRADA
   pressure1 = 0.0; // variable for averaging
@@ -293,8 +502,53 @@ void getReadings(){
 String processor(const String& var){
   getReadings();
   //Serial.println(var);
-  if(var == "TEMPERATURE"){
-    return String(temperature);
+  if(var == "TEMP1"){
+    return String(temp1);
+  }
+  else if(var == "TEMP2"){
+    return String(temp2);
+  }
+  else if(var == "TEMP3"){
+    return String(temp3);
+  }
+  else if(var == "TEMP4"){
+    return String(temp4);
+  }
+  else if(var == "TEMP5"){
+    return String(temp5);
+  }
+  else if(var == "TEMP6"){
+    return String(temp6);
+  }
+  else if(var == "TEMP7"){
+    return String(temp7);
+  }
+  else if(var == "TEMP8"){
+    return String(temp8);
+  }
+  else if(var == "TEMP9"){
+    return String(temp9);
+  }
+  else if(var == "TEMP10"){
+    return String(temp10);
+  }
+  else if(var == "TEMP11"){
+    return String(temp11);
+  }
+  else if(var == "TEMP12"){
+    return String(temp12);
+  }
+  else if(var == "TEMP13"){
+    return String(temp13);
+  }
+  else if(var == "TEMP14"){
+    return String(temp14);
+  }
+  else if(var == "TEMP15"){
+    return String(temp15);
+  }
+  else if(var == "TEMP16"){
+    return String(temp16);
   }
   else if(var == "PRESSURE1"){
     return String(pressure1);
@@ -337,8 +591,53 @@ const char index_html[] PROGMEM = R"rawliteral(
   </div>
   <div class="content">
     <div class="cards">
-      <div class="card temperature">
-        <h4><i class="fas fa-thermometer-half"></i> Temperatura</h4><p><span class="reading"><span id="temp">%TEMPERATURE%</span> &deg;C</span></p>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 1</h4><p><span class="reading"><span id="temp">%TEMP1%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 2</h4><p><span class="reading"><span id="temp">%TEMP2%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 3</h4><p><span class="reading"><span id="temp">%TEMP3%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 4</h4><p><span class="reading"><span id="temp">%TEMP4%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 5</h4><p><span class="reading"><span id="temp">%TEMP5%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 6</h4><p><span class="reading"><span id="temp">%TEMP6%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 7</h4><p><span class="reading"><span id="temp">%TEMP7%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 8</h4><p><span class="reading"><span id="temp">%TEMP8%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 9</h4><p><span class="reading"><span id="temp">%TEMP9%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 10</h4><p><span class="reading"><span id="temp">%TEMP10%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 11</h4><p><span class="reading"><span id="temp">%TEMP11%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 12</h4><p><span class="reading"><span id="temp">%TEMP12%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 13</h4><p><span class="reading"><span id="temp">%TEMP13%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 14</h4><p><span class="reading"><span id="temp">%TEMP14%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 15</h4><p><span class="reading"><span id="temp">%TEMP15%</span> &deg;C</span></p>
+      </div>
+      <div class="card temperature1">
+        <h4><i class="fas fa-thermometer-half"></i> Temperatura 16</h4><p><span class="reading"><span id="temp">%TEMP16%</span> &deg;C</span></p>
       </div>
       <div class="card pressure1">
         <h4><i class="fas fa-angle-double-down"></i> Pressão Entrada</h4><p><span class="reading"><span id="pres">%PRESSURE1%</span> hPa</span></p>
@@ -365,7 +664,6 @@ void deleteFile(fs::FS &fs, const char * path){
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin(I2C_SDA, I2C_SCL);
 
   if(!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)){
     Serial.println("SPIFFS Mount Failed");
@@ -405,6 +703,12 @@ void setup() {
     deleteFile(SPIFFS, DATABASE);
   });
 
+  // Multiplexer
+  pinMode(MUX_S0, OUTPUT);
+  pinMode(MUX_S1, OUTPUT);
+  pinMode(MUX_S2, OUTPUT);
+  pinMode(MUX_S3, OUTPUT);
+
   AsyncElegantOTA.begin(&server);
   server.begin();
 }
@@ -416,7 +720,37 @@ void loop(void) {
   getReadings();
   String dados = unixTimeToDateTime(ntpClient.getUnixTime());
   dados += ",";
-  dados += String(temperature, 2);
+  dados += String(temp1, 2);
+  dados += ",";
+  dados += String(temp2, 2);
+  dados += ",";
+  dados += String(temp3, 2);
+  dados += ",";
+  dados += String(temp4, 2);
+  dados += ",";
+  dados += String(temp5, 2);
+  dados += ",";
+  dados += String(temp6, 2);
+  dados += ",";
+  dados += String(temp7, 2);
+  dados += ",";
+  dados += String(temp8, 2);
+  dados += ",";
+  dados += String(temp9, 2);
+  dados += ",";
+  dados += String(temp10, 2);
+  dados += ",";
+  dados += String(temp11, 2);
+  dados += ",";
+  dados += String(temp12, 2);
+  dados += ",";
+  dados += String(temp13, 2);
+  dados += ",";
+  dados += String(temp14, 2);
+  dados += ",";
+  dados += String(temp15, 2);
+  dados += ",";
+  dados += String(temp16, 2);
   dados += ",";
   dados += String(pressure1, 2);
   dados += ",";
