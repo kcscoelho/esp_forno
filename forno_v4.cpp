@@ -675,9 +675,11 @@ void setup() {
 
   WiFi.mode(WIFI_AP_STA);
 
+/*
   if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
     Serial.println("STA Failed to configure");
   }
+*/
 
   // Set device as a Wi-Fi Station
   WiFi.begin(ssid, password);
