@@ -38,7 +38,7 @@ Bibliotecas:
 https://blogmasterwalkershop.com.br/arquivos/libs/MAX6675-library-master.zip
 
 - Q2HX711
-https://github.com/queuetue/Q2-HX711-Arduino-Library/blob/master/src/Q2HX711.cpp
+https://github.com/queuetue/Q2-HX711-Arduino-Library
 
 - AsyncTCP
 https://github.com/me-no-dev/AsyncTCP
@@ -100,8 +100,8 @@ String data;
 // Tempo par
 int SO = 23;
 int CS = 5;
-int SCK = 18;
-MAX6675 module(SCK, CS, SO);
+int sck = 18;
+MAX6675 module(sck, CS, SO);
 
 // Pressão
 const byte MPS_1_SCK_pin = 10; // clock data pin
