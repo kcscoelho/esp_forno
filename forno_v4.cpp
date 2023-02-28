@@ -15,9 +15,9 @@ Componentes utilizados:
 
 Conexões:
 Sensor de temperatura termo par tipo K, modelo MAX6675
-CS  – Pino 5
-SCK – Pino 18
-S0  – Pino 23
+S0  – Pino 3
+SCK – Pino 4
+CS  – Pino 5 através das entradas do Multiplexer
 GND – negativo
 VCC – positivo
 
@@ -29,11 +29,12 @@ Obs: para multiplexar os sensores de temperatura, utilizar a seguinte conexão:
 MUX, Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
 GND – negativo
 VCC – positivo
-S0 - Pino 6
-S1 - Pino 3
-S2 - Pino 4
-S3 - Pino 8
-EN - Pino 5
+S0 - Pino 23
+S1 - Pino 24
+S2 - Pino 25
+S3 - Pino 26
+SIG - Pino 5 - chaveia esse pino com a saída do multiplexer
+EN - negativo
 
 Sensor de pressão modelo MPS20N0040D / HX710B
 Sensor 1 - Entrada
@@ -104,10 +105,12 @@ versão 4: adequado para sensores MAX6675 e HX710B.
 #define FORMAT_SPIFFS_IF_FAILED false
 #define DATABASE "/database.csv"
 
-#define MUX_S0 6
-#define MUX_S1 3
-#define MUX_S2 4
-#define MUX_S3 8
+#define MUX_S0 23
+#define MUX_S1 24
+#define MUX_S2 25
+#define MUX_S3 26
+
+#define DEBUG true
 
 float temp1;
 float temp2;
@@ -130,9 +133,9 @@ float pressure2;
 String data;
 
 // Tempo par
-int SO = 23;
+int SO = 3;
+int sck = 4;
 int CS = 5;
-int sck = 18;
 MAX6675 module(sck, CS, SO);
 
 // Pressão
@@ -411,42 +414,59 @@ void mux(int circuit){
   digitalWrite(MUX_S2, HIGH);
   digitalWrite(MUX_S3, HIGH);
   }
-  
+  if (DEBUG) Serial.println("Multiplex: "+MUX_S0+MUX_S1+MUX_S2+MUX_S3);
+
 }
 
 void getReadings(){
   // TEMPO PAR
   mux(1);
+  delay(100);
   temp1 = module.readCelsius(); 
   mux(2);
+  delay(100);
   temp2 = module.readCelsius(); 
   mux(3);
+  delay(100);
   temp3 = module.readCelsius(); 
   mux(4);
+  delay(100);
   temp4 = module.readCelsius(); 
   mux(5);
+  delay(100);
   temp5 = module.readCelsius(); 
   mux(6);
+  delay(100);
   temp6 = module.readCelsius(); 
   mux(7);
+  delay(100);
   temp7 = module.readCelsius(); 
   mux(8);
+  delay(100);
   temp8 = module.readCelsius(); 
   mux(9);
+  delay(100);
   temp9 =  module.readCelsius(); 
   mux(10);
+  delay(100);
   temp10 = module.readCelsius(); 
   mux(11);
+  delay(100);
   temp11 = module.readCelsius(); 
   mux(12);
+  delay(100);
   temp12 = module.readCelsius(); 
   mux(13);
+  delay(100);
   temp13 = module.readCelsius(); 
   mux(14);
+  delay(100);
   temp14 = module.readCelsius(); 
   mux(15);
+  delay(100);
   temp15 = module.readCelsius(); 
   mux(16);
+  delay(100);
   temp16 = module.readCelsius(); 
   
   Serial.print("Temp1: ");
