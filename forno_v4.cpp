@@ -147,7 +147,6 @@ Q2HX711 MPS20N0040D_2(MPS_2_OUT_pin, MPS_2_SCK_pin); // start comm with the HX71
 
 const char* ssid = "x";
 const char* password = "x";
-
 /*
 IPAddress local_IP(x, x, x, 19);
 IPAddress gateway(x, x, x, 1);
@@ -155,7 +154,6 @@ IPAddress subnet(255, 255, 255, 0);
 IPAddress primaryDNS(8, 8, 8, 8);
 IPAddress secondaryDNS(8, 8, 4, 4);
 */
-
 WiFiUDP ntpUDP;
 EasyNTPClient ntpClient(ntpUDP, "pool.ntp.br", (-3*60*60)); // GMT -3:00
 
@@ -582,9 +580,9 @@ const char index_html[] PROGMEM = R"rawliteral(
     .card { background-color: white; box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); }
     .cards { max-width: 700px; margin: 0 auto; display: grid; grid-gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     .reading { font-size: 2.8rem; }
-    .card.temperature { color: #0e7c7b; }
-    .card.pressure { color: #3fca6b; }
-    .card.download { color: #3498db; }
+    .card.t1 { color: #0e7c7b; }
+    .card.p1 { color: #3fca6b; }
+    .card.d1 { color: #3498db; }
   </style>
 </head>
 <body>
@@ -597,58 +595,58 @@ const char index_html[] PROGMEM = R"rawliteral(
       <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 1</h4><p><span class="reading"><span id="temp">%TEMP1%</span> &deg;C</span></p>
       </div>
-      <div class="card t2">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 2</h4><p><span class="reading"><span id="temp">%TEMP2%</span> &deg;C</span></p>
       </div>
-      <div class="card t3">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 3</h4><p><span class="reading"><span id="temp">%TEMP3%</span> &deg;C</span></p>
       </div>
-      <div class="card t4">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 4</h4><p><span class="reading"><span id="temp">%TEMP4%</span> &deg;C</span></p>
       </div>
-      <div class="card t5">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 5</h4><p><span class="reading"><span id="temp">%TEMP5%</span> &deg;C</span></p>
       </div>
-      <div class="card t6">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 6</h4><p><span class="reading"><span id="temp">%TEMP6%</span> &deg;C</span></p>
       </div>
-      <div class="card t7">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 7</h4><p><span class="reading"><span id="temp">%TEMP7%</span> &deg;C</span></p>
       </div>
-      <div class="card t8">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 8</h4><p><span class="reading"><span id="temp">%TEMP8%</span> &deg;C</span></p>
       </div>
-      <div class="card t9">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 9</h4><p><span class="reading"><span id="temp">%TEMP9%</span> &deg;C</span></p>
       </div>
-      <div class="card t10">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 10</h4><p><span class="reading"><span id="temp">%TEMP10%</span> &deg;C</span></p>
       </div>
-      <div class="card t11">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 11</h4><p><span class="reading"><span id="temp">%TEMP11%</span> &deg;C</span></p>
       </div>
-      <div class="card t12">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 12</h4><p><span class="reading"><span id="temp">%TEMP12%</span> &deg;C</span></p>
       </div>
-      <div class="card t13">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 13</h4><p><span class="reading"><span id="temp">%TEMP13%</span> &deg;C</span></p>
       </div>
-      <div class="card t14">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 14</h4><p><span class="reading"><span id="temp">%TEMP14%</span> &deg;C</span></p>
       </div>
-      <div class="card t15">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 15</h4><p><span class="reading"><span id="temp">%TEMP15%</span> &deg;C</span></p>
       </div>
-      <div class="card t16">
+      <div class="card t1">
         <h4><i class="fas fa-thermometer-half"></i> Temperatura 16</h4><p><span class="reading"><span id="temp">%TEMP16%</span> &deg;C</span></p>
       </div>
       <div class="card p1">
         <h4><i class="fas fa-angle-double-down"></i> Pressão Entrada</h4><p><span class="reading"><span id="pres">%PRESSURE1%</span> hPa</span></p>
       </div>
-      <div class="card p2">
+      <div class="card p1">
         <h4><i class="fas fa-angle-double-down"></i> Pressão Saída</h4><p><span class="reading"><span id="pres">%PRESSURE2%</span> hPa</span></p>
       </div>
-      <div class="card download">
+      <div class="card d1">
         <h4>Baixar dados coletados</h4><p><span class="reading"><span id="download"><a href="/download" download><i class="fas fa-download"></i></a></span></p></span> 
       </div>
     </div>
@@ -675,11 +673,9 @@ void setup() {
 
   WiFi.mode(WIFI_AP_STA);
 
-/*
-  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
-    Serial.println("STA Failed to configure");
-  }
-*/
+//  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
+//    Serial.println("STA Failed to configure");
+//  }
 
   // Set device as a Wi-Fi Station
   WiFi.begin(ssid, password);
