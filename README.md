@@ -1,11 +1,11 @@
 # ESP Forno
 
-Programa para ler 16 termo pares tipo K e 2 sensores de pressão em fornos industriais
+Programa para ler 16 termo pares tipo K e 2 sensores de pressão em fornos industriais.<br>
 17-02-2023 - 28-02-2023
 
 #### Descrição:
-O programa efetua a leitura dos sensores e exibe em página web e grava em arquivo csv os valores.
-O arquivo csv pode ser baixado pela página web. Também pode ser zerado para começar um arquivo novo.
+O programa efetua a leitura dos sensores e exibe em página web e grava em arquivo csv os valores.<br>
+O arquivo csv pode ser baixado pela página web. Também pode ser zerado para começar um arquivo novo.<br>
 Atualização de firmware via OTA (ElegantOTA).
 
 #### Componentes utilizados:
@@ -64,13 +64,12 @@ https://github.com/ayushsharma82/AsyncElegantOTA
 - ESPAsyncWebServer
 https://github.com/me-no-dev/ESPAsyncWebServer
 
-Obs: para instalar essas bibliotecas, abrir o Arduino IDE e seguir o caminho abaixo:
-Tools > Manage Libraries
+Obs: para instalar essas bibliotecas, abrir o Arduino IDE e seguir o caminho abaixo:<br>
+Tools > Manage Libraries<br>
 Então digitar o nome da biblioteca e clicar em Install.
 
 #### Importante: 
-Se não encontrar a biblioteca pela interface do arduino IDE,
-baixar diretamente do site do desenvolvedor e descompactar no diretório "libraries" do Arduino.
+Se não encontrar a biblioteca pela interface do arduino IDE, baixar diretamente do site do desenvolvedor e descompactar no diretório "libraries" do Arduino.
 
 #### Referências:
 Pressure Measurements with the MPS20N0040D Breakout Board with the HX710B/HX711 ADC 5V Supply Voltage
