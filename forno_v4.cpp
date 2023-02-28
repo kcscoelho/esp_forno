@@ -147,13 +147,15 @@ Q2HX711 MPS20N0040D_2(MPS_2_OUT_pin, MPS_2_SCK_pin); // start comm with the HX71
 
 const char* ssid = "x";
 const char* password = "x";
-/*
+
+/* Descomentar se for usar IP Fixo
 IPAddress local_IP(x, x, x, 19);
 IPAddress gateway(x, x, x, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress primaryDNS(8, 8, 8, 8);
 IPAddress secondaryDNS(8, 8, 4, 4);
 */
+
 WiFiUDP ntpUDP;
 EasyNTPClient ntpClient(ntpUDP, "pool.ntp.br", (-3*60*60)); // GMT -3:00
 
@@ -673,9 +675,11 @@ void setup() {
 
   WiFi.mode(WIFI_AP_STA);
 
-//  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
-//    Serial.println("STA Failed to configure");
-//  }
+/* Descomentar se for utilizar IP fixo
+  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
+    Serial.println("STA Failed to configure");
+  }
+*/
 
   // Set device as a Wi-Fi Station
   WiFi.begin(ssid, password);
@@ -699,8 +703,7 @@ void setup() {
 
   // Route to delete database.csv file
   server.on("/delete-database-confirm-confirm-confirm", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, DATABASE, "text/csv");
-    delay(30000);
+    //request->send(SPIFFS, DATABASE, "text/csv");
     deleteFile(SPIFFS, DATABASE);
   });
 
