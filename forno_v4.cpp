@@ -29,7 +29,7 @@ Obs: para multiplexar os sensores de temperatura, utilizar a seguinte conexão:
 MUX, Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
 GND – negativo
 VCC – positivo
-S0 - Pino 2
+S0 - Pino 6
 S1 - Pino 3
 S2 - Pino 4
 S3 - Pino 8
@@ -104,7 +104,7 @@ versão 4: adequado para sensores MAX6675 e HX710B.
 #define FORMAT_SPIFFS_IF_FAILED false
 #define DATABASE "/database.csv"
 
-#define MUX_S0 2
+#define MUX_S0 6
 #define MUX_S1 3
 #define MUX_S2 4
 #define MUX_S3 8
