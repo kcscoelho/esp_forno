@@ -20,6 +20,9 @@ https://lastminuteengineers.com/esp32-pinout-reference/
 #### Pinos de IO ESP WROOM32:
 16,17,18,19,20,21,22,23,24,28,29,30,31,32,33,34i,35i
 
+#### Esquema de ligação:
+<img src="https://github.com/kcscoelho/esp_forno/blob/main/Esquema.PNG">
+
 #### Conexões:
 ##### Sensor de temperatura termo par tipo K, modelo MAX6675
 - CS : Pino 22
