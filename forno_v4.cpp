@@ -16,41 +16,41 @@ Componentes utilizados:
 Pinou ESP WROOM32: https://lastminuteengineers.com/esp32-pinout-reference/
 
 Pinos de IO ESP WROOM32:
-16,17,18,19,20,21,22,23,24,28,29,30,31,32,33
+16,17,18,19,20,21,22,23,24,28,29,30,31,32,33,34i,35i
 
 Conexões:
 Sensor de temperatura termo par tipo K, modelo MAX6675
-S0  – Pino 3
-SCK – Pino 4
-CS  – Pino 5 através das entradas do Multiplexer
+S0  – Pino 22
+SCK – Pino 23
+CS  – Pino 21 através das entradas do Multiplexer
 GND – negativo
 VCC – positivo
 
 Obs: para multiplexar os sensores de temperatura, utilizar a seguinte conexão:
-- Todos os SCKs no pino 18.
-- Todos os S0 no pino 23.
+- Todos os SCKs no pino 23.
+- Todos os S0 no pino 22.
 - CS de cada sensor numa porta do MUX.
 
 MUX, Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
 GND – negativo
 VCC – positivo
-S0 - Pino 23
-S1 - Pino 24
-S2 - Pino 25
-S3 - Pino 26
-SIG - Pino 5 - chaveia esse pino com a saída do multiplexer
+S0 - Pino 19
+S1 - Pino 18
+S2 - Pino 17
+S3 - Pino 16
+SIG - Pino 21 - chaveia esse pino com a saída do multiplexer
 EN - negativo
 
 Sensor de pressão modelo MPS20N0040D / HX710B
 Sensor 1 - Entrada
-SCK – Pino 10
-OUT – Pino 11
+SCK – Pino 32
+OUT – Pino 34
 GND – negativo
 VCC – positivo
 
 Sensor 2 - Saída
-SCK – Pino 12
-OUT – Pino 13
+SCK – Pino 33
+OUT – Pino 35
 GND – negativo
 VCC – positivo
 
@@ -107,15 +107,15 @@ versão 4: adequado para sensores MAX6675 e HX710B.
 #include "time.h"
 #include "Q2HX711.h"
 
+#define DEBUG true
 #define FORMAT_SPIFFS_IF_FAILED false
 #define DATABASE "/database.csv"
 
-#define MUX_S0 23
-#define MUX_S1 24
-#define MUX_S2 25
-#define MUX_S3 26
-
-#define DEBUG true
+#define MUX_S0 19
+#define MUX_S1 18
+#define MUX_S2 17
+#define MUX_S3 16
+#define MUX_SIG 21
 
 float temp1;
 float temp2;
@@ -138,16 +138,15 @@ float pressure2;
 String data;
 
 // Tempo par
-int SO = 3;
-int sck = 4;
-int CS = 5;
-MAX6675 module(sck, CS, SO);
+int SO = 22;
+int sck = 23;
+MAX6675 module(sck, MUX_SIG, SO);
 
 // Pressão
-const byte MPS_1_SCK_pin = 10; // clock data pin
-const byte MPS_1_OUT_pin = 11; // OUT data pin
-const byte MPS_2_SCK_pin = 12; // clock data pin
-const byte MPS_2_OUT_pin = 13; // OUT data pin
+const byte MPS_1_SCK_pin = 32; // clock data pin
+const byte MPS_1_OUT_pin = 34; // OUT data pin
+const byte MPS_2_SCK_pin = 33; // clock data pin
+const byte MPS_2_OUT_pin = 35; // OUT data pin
 int avg_size = 10; // # pts to average over
 
 Q2HX711 MPS20N0040D_1(MPS_1_OUT_pin, MPS_1_SCK_pin); // start comm with the HX710B Sensor 1
@@ -419,8 +418,7 @@ void mux(int circuit){
   digitalWrite(MUX_S2, HIGH);
   digitalWrite(MUX_S3, HIGH);
   }
-  if (DEBUG) Serial.println("Multiplex: "+MUX_S0+MUX_S1+MUX_S2+MUX_S3);
-
+  
 }
 
 void getReadings(){
