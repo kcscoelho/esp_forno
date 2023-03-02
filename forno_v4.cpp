@@ -8,10 +8,13 @@ O arquivo csv pode ser baixado pela página web. Também pode ser zerado para co
 Atualização de firmware via OTA (ElegantOTA).
 
 Componentes utilizados:
-- ESP WROOM32 (pinout: https://www.electronicshub.org/esp32-pinout/)
+- ESP WROOM32
 - Termo par tipo K modelo MAX6675
 - Sensor de pressão modelo MPS20N0040D HX710B
 - Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
+
+Pinos de IO ESP WROOM32:
+16,17,18,19,20,21,22,23,24,28,29,30,31,32,33
 
 Conexões:
 Sensor de temperatura termo par tipo K, modelo MAX6675
