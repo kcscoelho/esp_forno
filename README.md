@@ -14,6 +14,9 @@ Atualização de firmware via OTA (ElegantOTA).
 - Sensor de pressão modelo MPS20N0040D HX710B
 - Multiplexador 74HC4067 / HP4067 CMOS 16 Canais
 
+#### Pinou ESP WROOM32:
+https://lastminuteengineers.com/esp32-pinout-reference/
+
 #### Pinos de IO ESP WROOM32:
 16,17,18,19,20,21,22,23,24,28,29,30,31,32,33
 
