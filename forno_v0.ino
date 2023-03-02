@@ -17,7 +17,7 @@ void setup() {
 
 void loop() {
   float temperature = module.readCelsius(); 
-  Serial.print("Temperature: " + temperature);
-  Serial.println(F("°C "));   
-  
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(F("°C "));
 }
