@@ -25,9 +25,9 @@ https://lastminuteengineers.com/esp32-pinout-reference/
 
 #### Conexões:
 ##### Sensor de temperatura termo par tipo K, modelo MAX6675
-- CS : Pino 22
+- CS : Pino 21 através das entradas do Multiplexer
 - SCK: Pino 23
-- S0 : Pino 21 através das entradas do Multiplexer
+- S0 : Pino 22
 - GND: negativo
 - VCC: positivo
 
