@@ -1,12 +1,17 @@
 # ESP Forno
 
 Programa para ler 16 termo pares tipo K e 2 sensores de pressão em fornos industriais.<br>
-17-02-2023 - 28-02-2023
+17-02-2023 - 06-03-2023
 
 #### Descrição:
-O programa efetua a leitura dos sensores e exibe em página web e grava em arquivo csv os valores.<br>
+O programa efetua a leitura dos sensores, exibe os valores em página web e os grava em arquivo csv.<br>
 O arquivo csv pode ser baixado pela página web. Também pode ser zerado para começar um arquivo novo.<br>
 Atualização de firmware via OTA (ElegantOTA).
+
+##### Comandos web
+- /download: baixa o arquivo database.csv com os dados coletados pelos sensores.
+- /update: permite atualizar o firmware via navegador.
+- /delete-database-confirm-confirm-confirm: exclui o arquivo de dados atual e inicia um novo arquivo de coletas. Atenção, baixe o arquivo antes de excluí-lo.
 
 #### Componentes utilizados:
 - ESP WROOM32
