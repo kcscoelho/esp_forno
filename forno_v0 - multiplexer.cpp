@@ -42,6 +42,8 @@ https://blogmasterwalkershop.com.br/arquivos/libs/MAX6675-library-master.zip
 #define MUX_S3 16
 #define MUX_SIG 21
 
+#define DELAY 3000; // temporizador do multipexer, em ms.
+
 float temp1;
 float temp2;
 float temp3;
@@ -183,52 +185,52 @@ void mux(int circuit){
 void getReadings(){
   // TEMPO PAR
   mux(1);
-  delay(100);
+  delay(DELAY);
   temp1 = module.readCelsius(); 
   mux(2);
-  delay(100);
+  delay(DELAY);
   temp2 = module.readCelsius(); 
   mux(3);
-  delay(100);
+  delay(DELAY);
   temp3 = module.readCelsius(); 
   mux(4);
-  delay(100);
+  delay(DELAY);
   temp4 = module.readCelsius(); 
   mux(5);
-  delay(100);
+  delay(DELAY);
   temp5 = module.readCelsius(); 
   mux(6);
-  delay(100);
+  delay(DELAY);
   temp6 = module.readCelsius(); 
   mux(7);
-  delay(100);
+  delay(DELAY);
   temp7 = module.readCelsius(); 
   mux(8);
-  delay(100);
+  delay(DELAY);
   temp8 = module.readCelsius(); 
   mux(9);
-  delay(100);
+  delay(DELAY);
   temp9 =  module.readCelsius(); 
   mux(10);
-  delay(100);
+  delay(DELAY);
   temp10 = module.readCelsius(); 
   mux(11);
-  delay(100);
+  delay(DELAY);
   temp11 = module.readCelsius(); 
   mux(12);
-  delay(100);
+  delay(DELAY);
   temp12 = module.readCelsius(); 
   mux(13);
-  delay(100);
+  delay(DELAY);
   temp13 = module.readCelsius(); 
   mux(14);
-  delay(100);
+  delay(DELAY);
   temp14 = module.readCelsius(); 
   mux(15);
-  delay(100);
+  delay(DELAY);
   temp15 = module.readCelsius(); 
   mux(16);
-  delay(100);
+  delay(DELAY);
   temp16 = module.readCelsius(); 
   
   Serial.print("Temp1: ");
